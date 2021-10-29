@@ -16,7 +16,13 @@ main()
     test.write(frame);
     frame.release();
     test.start();
-    while(cap.isOpened()){cap >> frame; test.write(frame); frame.release();}
+    while(
+        cap.isOpened()){cap >> frame; 
+        imshow("MJPEG Writer debug", frame);
+        test.write(frame); 
+        waitKey(1);
+        frame.release();
+    }
     test.stop();
     exit(0);
 
