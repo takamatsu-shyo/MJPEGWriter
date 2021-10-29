@@ -37,7 +37,9 @@ Compile with C++11, OpenCV libraries and pthread:
 
 
 ```sh
-g++ MJPEGWriter.cpp main.cpp -o MJPEG -lpthread -lopencv_highgui -lopencv_core -std=c++11
+# For OpenCV4
+g++ MJPEGWriter.cpp main.cpp -o MJPEG -lpthread -lopencv_highgui -lopencv_core `pkg-config --libs opencv4 --cflags opencv4`  
+#g++ MJPEGWriter.cpp main.cpp -o MJPEG -lpthread -lopencv_highgui -lopencv_core -std=c++11
 ```
 
 ## Roadmap
