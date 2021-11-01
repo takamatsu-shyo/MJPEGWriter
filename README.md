@@ -3,7 +3,7 @@ OpenCV Video HTTP Streaming via MJPEG.
 Based on the code found in 
 [StackExchange -  CodeReview](http://codereview.stackexchange.com/questions/124321/multithreaded-mjpg-network-stream-server/156915#156915) and [Answers - OpenCV](http://answers.opencv.org/question/6976/display-iplimage-in-webbrowsers/)
 
-## Example main
+## Example main server
 
 ```C++
 int main()
@@ -32,20 +32,40 @@ int main()
 ```
 Note: you have to write an image to the MJPEGWriter class before start the server.
 
+## Python client
+```Python
+import cv2
+
+cap = cv2.VideoCapture("http://localhost:7777")
+if not(cap.isOpened()):
+    print("Failed to open MJPEG streaming")
+
+ret, frame = cap.read()
+ 
+while(True):
+    ret, frame = cap.read()
+    cv2.imshow("MJPEG Reader", frame)
+    cv2.waitKey(1)
+
+```
+
 ## Compiling
 Compile with C++11, OpenCV libraries and pthread:
 
+### CMake
+
+```sh
+mkdir build
+cd build
+cmake ..
+make
+```
+
+## g++
 
 ```sh
 # For OpenCV4
 g++ MJPEGWriter.cpp main.cpp -o MJPEG -lpthread -lopencv_highgui -lopencv_core `pkg-config --libs opencv4 --cflags opencv4`  
-#g++ MJPEGWriter.cpp main.cpp -o MJPEG -lpthread -lopencv_highgui -lopencv_core -std=c++11
-```
-
-## Python client
-```
-# OpenCV is required in the environment
-python MJPEGReader.py
 ```
 
 ## Roadmap
